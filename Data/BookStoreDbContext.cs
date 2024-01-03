@@ -1,4 +1,4 @@
-﻿using BaseProjectAPI.Models;
+﻿using BaseProjectAPI.Data.Config;
 using Microsoft.EntityFrameworkCore;
 
 namespace BaseProjectAPI.Data
@@ -10,5 +10,10 @@ namespace BaseProjectAPI.Data
         #region DbSet
         public DbSet<Book>? Books { get; set; }
         #endregion DbSet
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new BookConfig());
+        }
     }
 }

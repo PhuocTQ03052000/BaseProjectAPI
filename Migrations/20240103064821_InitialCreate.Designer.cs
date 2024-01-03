@@ -3,6 +3,7 @@ using BaseProjectAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BaseProjectAPI.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240103064821_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +36,9 @@ namespace BaseProjectAPI.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<double>("Price")
+                    b.Property<int>("Price")
                         .HasMaxLength(100)
-                        .HasColumnType("float");
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasMaxLength(100)
@@ -55,7 +58,7 @@ namespace BaseProjectAPI.Migrations
                         {
                             Id = 1,
                             Description = "Thám tử Conan phá án",
-                            Price = 11.111000000000001,
+                            Price = 11111,
                             Quantity = 90,
                             Title = "Conan"
                         },
@@ -63,7 +66,7 @@ namespace BaseProjectAPI.Migrations
                         {
                             Id = 2,
                             Description = "Cuộc phiêu lưu của Goku",
-                            Price = 11.1167,
+                            Price = 111167,
                             Quantity = 90,
                             Title = "Bảy viên ngọc rồng"
                         },
@@ -71,7 +74,7 @@ namespace BaseProjectAPI.Migrations
                         {
                             Id = 3,
                             Description = "Chú bé đáng yêu",
-                            Price = 10.0,
+                            Price = 10000,
                             Quantity = 90,
                             Title = "Shin Cậu Bé Bút Chì"
                         });

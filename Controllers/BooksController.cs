@@ -23,37 +23,81 @@ namespace BaseProjectAPI.Controllers
 
         // GET: api/Books
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        [Route("GetAllBooks", Name = "GetAllBooks")]
+        public ActionResult<IEnumerable<BookDTO>> GetAllBooks()
         {
-          if (_context.Books == null)
-          {
-              return NotFound();
-          }
-            return await _context.Books.ToListAsync();
+            var BookDTOs = _context.Books?.Select(book => new Book()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                Price = book.Price,
+                Quantity = book.Quantity
+            });
+
+            return Ok(BookDTOs);
         }
 
-        // GET: api/Books/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(int id)
+        // GET: api/BookByName
+        [HttpGet]
+								[Route("{title}/GetBookByTitle", Name = "GetBookByTitle")]
+								public ActionResult<BookDTO> GetBookByTitle(string title)
+								{
+												if (title.Length <= 0)
+												{
+																return BadRequest();
+												}
+												var book = _context.Books?.Where(n => n.Title == title).FirstOrDefault();
+
+												if (book == null)
+												{
+																return NotFound($"Book with title = {title} not found");
+												}
+
+												var BookDTOs = new Book()
+												{
+																Id = book.Id,
+																Title = book.Title,
+																Description = book.Description,
+																Price = book.Price,
+																Quantity = book.Quantity
+												};
+
+												return Ok(BookDTOs);
+								}
+
+								// GET: api/BookById
+								[HttpGet]
+        [Route("{id:int}/GetBookById", Name = "GetBookById")]
+        public ActionResult<BookDTO> GetBookById(int id)
         {
-          if (_context.Books == null)
-          {
-              return NotFound();
-          }
-            var book = await _context.Books.FindAsync(id);
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+            var book = _context.Books?.Where(n => n.Id == id).FirstOrDefault();
 
             if (book == null)
             {
-                return NotFound();
+                return NotFound($"Book with id = {id} not found");
             }
 
-            return book;
+            var BookDTOs = new Book()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                Price = book.Price,
+                Quantity = book.Quantity
+            };
+
+            return Ok(BookDTOs);
         }
 
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBook(int id, Book book)
+        [HttpPut("{id}/UpdateBookById")]
+        public async Task<IActionResult> UpdateBookById(int id, Book book)
         {
             if (id != book.Id)
             {
@@ -81,39 +125,54 @@ namespace BaseProjectAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Books
+        // POST: api/Books/Create
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
+        [Route("CreateNewBook", Name = "CreateNewBook")]
+        public ActionResult<BookDTO> CreateNewBook([FromBody] BookDTO model)
         {
-          if (_context.Books == null)
-          {
-              return Problem("Entity set 'BookStoreDbContext.Books'  is null.");
-          }
-            _context.Books.Add(book);
-            await _context.SaveChangesAsync();
+            if (model == null)
+            {
+                return BadRequest();
+            }
 
-            return CreatedAtAction("GetBook", new { id = book.Id }, book);
+            Book book = new Book()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Price = model.Price,
+                Quantity = model.Quantity
+            };
+
+            _context.Books?.Add(book);
+            _context.SaveChanges();
+
+            model.ID = book.Id;
+
+            // trả về url/id vừa tạo
+            return CreatedAtRoute("GetBookById", new { id = model.ID }, model);
         }
 
-        // DELETE: api/Books/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBook(int id)
+        // DELETE: api/Books/Delete
+        [HttpDelete]
+        [Route("{id}/DeleteBookById", Name = "DeleteBookById")]
+        public ActionResult<bool> DeleteBookById(int id)
         {
-            if (_context.Books == null)
+            if (id <= 0)
             {
-                return NotFound();
+                return BadRequest();
             }
-            var book = await _context.Books.FindAsync(id);
+
+            var book = _context.Books?.Where(n => n.Id == id).FirstOrDefault();
             if (book == null)
             {
-                return NotFound();
+                return NotFound($"Book with id = {id} not found");
             }
 
-            _context.Books.Remove(book);
-            await _context.SaveChangesAsync();
+            _context.Books?.Remove(book);
+            _context.SaveChanges();
 
-            return NoContent();
+            return true;
         }
 
         private bool BookExists(int id)

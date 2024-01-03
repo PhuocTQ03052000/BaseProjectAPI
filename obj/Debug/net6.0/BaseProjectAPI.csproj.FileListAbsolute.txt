@@ -292,3 +292,4 @@ D:\PMS_BB_Training\BaseProjectAPI\bin\Debug\net6.0\runtimes\unix\lib\net6.0\Syst
 D:\PMS_BB_Training\BaseProjectAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\PMS_BB_Training\BaseProjectAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\PMS_BB_Training\BaseProjectAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\PMS_BB_Training\BaseProjectAPI\obj\Debug\net6.0\BaseProjectAPI.sourcelink.json
