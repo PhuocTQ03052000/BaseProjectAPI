@@ -1,9 +1,11 @@
 ﻿using BaseProjectAPI.Data.Config;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BaseProjectAPI.Data
 {
-    public class BookStoreDbContext: DbContext
+    public class BookStoreDbContext: IdentityDbContext<ApplicationUser>
     {
         public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options) : base(options) { }
 
@@ -13,7 +15,10 @@ namespace BaseProjectAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new BookConfig());
+            modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+												modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+												modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+												modelBuilder.ApplyConfiguration(new BookConfig());
         }
     }
 }

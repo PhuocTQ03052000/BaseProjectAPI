@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAmhT5Gxwq+kybVxNNnqdJgAAAAAACAAAAAAADZgAAwAAAABAAAAAkOa4AiHzPYRRK4ZelLEKiAAAAAASAAACgAAAAEAAAAJIcPGeI3e1MgFdKqkkTbcqAAAAAsLPx9V85TjDYTeMDRepcbLiM4mnfMlrm5RUlgTzw3o+2Jhqk6cFwVQxRDUWacM++blK1GSemDlV9es7NuIfPojl4hNbey19tJlvVwp/IK9fPUpQ807h2dhe98Z9yAHetP7s0q34KoCH30Hpk/0q6Ar4axpcC5UDlqDt4/GjyaaEUAAAAvZLEFKtEUJ4fvd8yMPTgsch0qb4=</EncryptedPassword>
+    <History>False|2024-01-05T07:32:33.1221111Z;False|2024-01-05T14:25:38.7534805+07:00;False|2024-01-05T14:12:09.1852954+07:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="BaseProjectAPI.Data.BookStoreDbContext">
+      <Value>Server=PHUOCTQ%3b Database=BookStore%3b Integrated Security=True%3b Encrypt=False%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
